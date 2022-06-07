@@ -33,6 +33,7 @@ dependencies {
         exclude("org.jetbrains", "annotations")
     }
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    implementation("org.sourcegrade:fopbot:0.3.0")
 }
 
 application {
