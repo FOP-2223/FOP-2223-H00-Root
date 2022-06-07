@@ -1,19 +1,19 @@
 {
   "name": "FOP-2223-H00",
-  "assignmentIds": [
-    "h00"
-  ],
+  "assignmentIds": ["h00"],
   "sourceSets": [
     {
       "name": "grader",
       "files": [
-        "h00/H00_RubricProvider.java"
+        "h00/H00_RubricProvider.java",
+        "h00/TutorTests.java"
       ]
     },
     {
       "name": "solution",
       "files": [
-        "h00/Main.java"
+        "h00/Main.java",
+        "h00/ExampleJUnitTest.java"
       ]
     }
   ]

@@ -7,14 +7,15 @@ import static fopbot.Direction.DOWN;
 import static fopbot.Direction.UP;
 
 /**
- * Code für Übungsblatt 00
+ * Code für Übungsblatt 00.
  *
  * @author Ruben Deisenroth
  */
 public class Main {
 
     /**
-     * Starts the Program
+     * Starts the Program.
+     *
      * @param args the Launch arguments
      */
     public static void main(String... args) {
@@ -33,7 +34,7 @@ public class Main {
     }
 
     /**
-     * Bewegt den Roboter entsprechend den Anforderungen von Übungsblatt 00
+     * Bewegt den Roboter entsprechend den Anforderungen von Übungsblatt 00.
      */
     public static void doExercise() {
         Robot robby = new Robot(4, 0, DOWN, 12);

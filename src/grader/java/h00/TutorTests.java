@@ -1,21 +1,27 @@
 package h00;
 
-import fopbot.*;
+import fopbot.Coin;
+import fopbot.Direction;
+import fopbot.Field;
 import fopbot.Robot;
+import fopbot.World;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-import javax.annotation.Nullable;
-import java.awt.*;
+import java.awt.Point;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 
+import static fopbot.Direction.DOWN;
+import static fopbot.Direction.LEFT;
+import static fopbot.Direction.RIGHT;
+import static fopbot.Direction.UP;
 import static org.junit.jupiter.api.Assertions.*;
-import static fopbot.Direction.*;
 
 /**
- * The Tutor Tests for Submission H00
+ * The Tutor Tests for Submission H00.
  *
  * @author Ruben Deisenroth
  */
@@ -33,7 +39,7 @@ public class TutorTests {
     public static final String WRONG_MOVEMENT_AMOUNT = "Die Anzahl der Bewegungen ist inkorrekt.";
 
     /**
-     * Returns a custom error Message for wrong movement at a given index
+     * Returns a custom error Message for wrong movement at a given index.
      *
      * @param movementId the Index of the movement
      * @return the message
@@ -43,7 +49,7 @@ public class TutorTests {
     }
 
     /**
-     * Returns a custom error Message for wrong coin count at a given position
+     * Returns a custom error Message for wrong coin count at a given position.
      *
      * @param p the position of the coin
      * @return the message
@@ -60,7 +66,7 @@ public class TutorTests {
     //-------------//
 
     /**
-     * Prepare the World for testing
+     * Prepare the World for testing.
      */
     public static void setupWorld() {
         World.reset();
@@ -70,7 +76,7 @@ public class TutorTests {
     }
 
     /**
-     * A Movement state of a Robot
+     * A Movement state of a Robot.
      *
      * @param x the X-Coordinate of the Robot
      * @param y the Y-Coordinate of the Robot
@@ -80,7 +86,7 @@ public class TutorTests {
     }
 
     /**
-     * Asserts that the actual movement matches the expected Movement with custom error messages
+     * Asserts that the actual movement matches the expected Movement with custom error messages.
      *
      * @param expected the expected movement
      * @param actual   the actual movement
@@ -99,7 +105,7 @@ public class TutorTests {
     }
 
     /**
-     * Converts a given list of States to a List of {@link MovementState}
+     * Converts a given list of States to a List of {@link MovementState}.
      *
      * @param states the list to convert
      * @return the converted List
@@ -113,18 +119,20 @@ public class TutorTests {
     }
 
     /**
-     * Returns the Java-Code to generate a given Movement-State list
+     * Returns the Java-Code to generate a given Movement-State list.
      *
      * @param states the List to generate
      * @return the Java-Code
      */
     @SuppressWarnings("unused")
     public static String getMovementStringListGenerationCode(List<MovementState> states) {
-        return "List.of(\n" + states.stream().map(s -> String.format("\tnew MovementState(%s, %s, %s)", s.x, s.y, s.d)).collect(Collectors.joining(",\n")) + "\n);";
+        return "List.of(\n" + states.stream()
+            .map(s -> String.format("\tnew MovementState(%s, %s, %s)", s.x, s.y, s.d))
+            .collect(Collectors.joining(",\n")) + "\n);";
     }
 
     /**
-     * Returns the Coin Counts of a given State
+     * Returns the Coin Counts of a given State.
      *
      * @param state the state
      * @return the coin Counts
@@ -136,7 +144,7 @@ public class TutorTests {
     }
 
     /**
-     * Asserts that the Coin Count arrays match
+     * Asserts that the Coin Count arrays match.
      *
      * @param expected the expected coin counts
      * @param actual   the actual Coin Counts
@@ -150,7 +158,7 @@ public class TutorTests {
     }
 
     /**
-     * Get the states list of the World
+     * Get the states list of the World.
      *
      * @return the state list
      */
@@ -162,7 +170,7 @@ public class TutorTests {
     }
 
     /**
-     * Returns the final State of the World
+     * Returns the final State of the World.
      *
      * @return the final State of the World
      */
@@ -197,7 +205,9 @@ public class TutorTests {
     @Test
     public void testEndPositionCorrect() {
         final var lastState = getFinalState();
-        assertTrue(lastState.getEntities().stream().filter(Robot.class::isInstance).anyMatch(x -> x.getX() == 0 && x.getY() == 0));
+        assertTrue(lastState.getEntities().stream()
+            .filter(Robot.class::isInstance)
+            .anyMatch(x -> x.getX() == 0 && x.getY() == 0));
     }
 
     @Test

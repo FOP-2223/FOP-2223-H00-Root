@@ -1,6 +1,11 @@
 package h00;
 
-import org.sourcegrade.jagr.api.rubric.*;
+import org.sourcegrade.jagr.api.rubric.Criterion;
+import org.sourcegrade.jagr.api.rubric.Grader;
+import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
+import org.sourcegrade.jagr.api.rubric.Rubric;
+import org.sourcegrade.jagr.api.rubric.RubricForSubmission;
+import org.sourcegrade.jagr.api.rubric.RubricProvider;
 
 @RubricForSubmission("h00")
 public class H00_RubricProvider implements RubricProvider {
@@ -49,7 +54,9 @@ public class H00_RubricProvider implements RubricProvider {
                             .build(),
                         Criterion
                             .builder()
-                            .shortDescription("Die Bewegungen des Roboters (Position und Blickrichtung) sind vollständig korrekt.")
+                            .shortDescription("Die Bewegungen des Roboters "
+                                + "(Position und Blickrichtung) "
+                                + "sind vollständig korrekt.")
                             .grader(
                                 Grader
                                     .testAwareBuilder()
