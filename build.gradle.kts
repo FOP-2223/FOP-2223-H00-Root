@@ -34,6 +34,8 @@ dependencies {
     }
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     implementation("org.sourcegrade:fopbot:0.3.0")
+    implementation("algoutils:algoutils-student:0.0.2")
+//    "graderImplementation"("algoutils:algoutils-tutor:0.0.2")
 }
 
 application {
