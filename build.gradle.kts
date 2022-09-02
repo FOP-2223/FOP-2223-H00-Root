@@ -1,17 +1,12 @@
-import org.sourcegrade.submitter.submit
-
+@Suppress("DSL_SCOPE_VIOLATION") // https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
     java
     application
-    id("org.sourcegrade.style") version "1.3.0"
-    id("org.sourcegrade.submitter") version "0.4.0"
+    alias(libs.plugins.style)
+    alias(libs.plugins.submitter)
 }
 
-version = "0.1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
+version = file("version").readLines().first()
 
 submit {
     assignmentId = "h00"
@@ -28,11 +23,11 @@ val grader: SourceSet by sourceSets.creating {
 }
 
 dependencies {
-    implementation("org.jetbrains:annotations:23.0.0")
-    "graderCompileOnly"("org.sourcegrade:jagr-launcher:0.4.0") {
+    implementation(libs.annotations)
+    "graderCompileOnly"(libs.jagr.launcher) {
         exclude("org.jetbrains", "annotations")
     }
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    testImplementation(libs.junit.core)
     implementation("org.sourcegrade:fopbot:0.3.0")
 }
 
