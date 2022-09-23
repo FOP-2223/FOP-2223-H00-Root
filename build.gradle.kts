@@ -4,9 +4,18 @@ plugins {
     application
     alias(libs.plugins.style)
     alias(libs.plugins.submitter)
+    id("org.sourcegrade.jagr-gradle") version "0.6.0-SNAPSHOT"
 }
 
 version = file("version").readLines().first()
+
+jagr {
+    toolVersion.set("0.6.0-SNAPSHOT")
+    grader {
+        graderName.set("FOP-2223-H00")
+        assignmentId.set("h00")
+    }
+}
 
 submit {
     assignmentId = "h00"
@@ -16,17 +25,11 @@ submit {
     requireTests = false
 }
 
-val grader: SourceSet by sourceSets.creating {
-    val test = sourceSets.test.get()
-    compileClasspath += test.output + test.compileClasspath
-    runtimeClasspath += output + test.runtimeClasspath
-}
-
 dependencies {
     implementation(libs.annotations)
-    "graderCompileOnly"(libs.jagr.launcher) {
-        exclude("org.jetbrains", "annotations")
-    }
+//    "graderPublicImplementation"(libs.jagr.launcher) {
+//        exclude("org.jetbrains", "annotations")
+//    }
     testImplementation(libs.junit.core)
     implementation("org.sourcegrade:fopbot:0.3.0")
 }
@@ -49,56 +52,6 @@ tasks {
         }
         workingDir = runDir
         useJUnitPlatform()
-    }
-    val graderTest by creating(Test::class) {
-        group = "verification"
-        doFirst {
-            runDir.mkdirs()
-        }
-        workingDir = runDir
-        testClassesDirs = grader.output.classesDirs
-        classpath = grader.compileClasspath + grader.runtimeClasspath
-        useJUnitPlatform()
-    }
-    named("check") {
-        dependsOn(graderTest)
-    }
-    val graderJar by creating(Jar::class) {
-        group = "build"
-        afterEvaluate {
-            archiveFileName.set("FOP-2223-H00-${project.version}.jar")
-            from(sourceSets.main.get().allSource)
-            from(sourceSets.test.get().allSource)
-            from(grader.allSource)
-        }
-    }
-    val graderLibs by creating(Jar::class) {
-        group = "build"
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-        // don't include Jagr's runtime dependencies
-        val jagrRuntime = configurations["graderCompileClasspath"]
-            .resolvedConfiguration
-            .firstLevelModuleDependencies
-            .first { it.moduleGroup == "org.sourcegrade" && it.moduleName == "jagr-launcher" }
-            .allModuleArtifacts
-            .map { it.file }
-
-        val runtimeDeps = grader.runtimeClasspath.mapNotNull {
-            if (it.path.toLowerCase().contains("h00") || jagrRuntime.contains(it)) {
-                null
-            } else if (it.isDirectory) {
-                it
-            } else {
-                zipTree(it)
-            }
-        }
-        from(runtimeDeps)
-        archiveFileName.set("FOP-2223-H00-${project.version}-libs.jar")
-    }
-    create("graderAll") {
-        group = "build"
-        dependsOn(graderJar, graderLibs)
     }
     withType<JavaCompile> {
         options.encoding = "UTF-8"
