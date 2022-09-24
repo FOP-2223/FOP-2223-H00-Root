@@ -1,3 +1,5 @@
+import org.sourcegrade.jagr.launcher.executor.createProgressBarProvider
+
 @Suppress("DSL_SCOPE_VIOLATION") // https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
     java
@@ -10,10 +12,18 @@ plugins {
 version = file("version").readLines().first()
 
 jagr {
-    toolVersion.set("0.6.0-SNAPSHOT")
-    grader {
-        graderName.set("FOP-2223-H00")
-        assignmentId.set("h00")
+    assignmentId.set("h00")
+    graders {
+        val graderPublic by creating {
+            graderName.set("FOP-2223-H00-Public")
+        }
+        val graderPrivate by creating {
+            graderName.set("FOP-2223-H00-Private")
+            dependsOn(graderPublic.sourceSet)
+        }
+    }
+    submissions {
+
     }
 }
 
@@ -27,9 +37,6 @@ submit {
 
 dependencies {
     implementation(libs.annotations)
-//    "graderPublicImplementation"(libs.jagr.launcher) {
-//        exclude("org.jetbrains", "annotations")
-//    }
     testImplementation(libs.junit.core)
     implementation("org.sourcegrade:fopbot:0.3.0")
 }
