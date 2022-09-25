@@ -13,6 +13,7 @@ jagr {
     submissions {
         val main by creating {
             studentId.set("ab12cdef")
+            firstName.set("sol_first")
             lastName.set("sol_last")
         }
     }
