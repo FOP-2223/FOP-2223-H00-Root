@@ -3,7 +3,6 @@ plugins {
     java
     application
     alias(libs.plugins.style)
-    alias(libs.plugins.submitter)
     id("org.sourcegrade.jagr-gradle") version "0.6.0-SNAPSHOT"
 }
 
@@ -14,28 +13,19 @@ jagr {
     submissions {
         val main by creating {
             studentId.set("ab12cdef")
-            firstName.set("sol_first")
             lastName.set("sol_last")
         }
     }
     graders {
         val graderPublic by creating {
+            submission(submissions["main"])
             graderName.set("FOP-2223-H00-Public")
-            dependsOn(submissions["main"])
         }
         val graderPrivate by creating {
+            parent(graderPublic)
             graderName.set("FOP-2223-H00-Private")
-            dependsOn(graderPublic)
         }
     }
-}
-
-submit {
-    assignmentId = "h00"
-    studentId = "ab12cdef"
-    firstName = "sol_first"
-    lastName = "sol_last"
-    requireTests = false
 }
 
 dependencies {
