@@ -1,5 +1,3 @@
-import org.sourcegrade.jagr.launcher.executor.createProgressBarProvider
-
 @Suppress("DSL_SCOPE_VIOLATION") // https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
     java
@@ -13,17 +11,22 @@ version = file("version").readLines().first()
 
 jagr {
     assignmentId.set("h00")
+    submissions {
+        val main by creating {
+            studentId.set("ab12cdef")
+            firstName.set("sol_first")
+            lastName.set("sol_last")
+        }
+    }
     graders {
         val graderPublic by creating {
             graderName.set("FOP-2223-H00-Public")
+            dependsOn(submissions["main"])
         }
         val graderPrivate by creating {
             graderName.set("FOP-2223-H00-Private")
-            dependsOn(graderPublic.sourceSet)
+            dependsOn(graderPublic)
         }
-    }
-    submissions {
-
     }
 }
 
