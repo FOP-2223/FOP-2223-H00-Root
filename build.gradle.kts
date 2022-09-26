@@ -19,7 +19,6 @@ jagr {
     }
     graders {
         val graderPublic by creating {
-            submission(submissions["main"])
             graderName.set("FOP-2223-H00-Public")
         }
         val graderPrivate by creating {
