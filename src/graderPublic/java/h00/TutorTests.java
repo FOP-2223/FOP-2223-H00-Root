@@ -8,6 +8,7 @@ import fopbot.World;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+import org.sourcegrade.jagr.api.testing.extension.TestCycleResolver;
 
 import java.awt.Point;
 import java.util.List;
