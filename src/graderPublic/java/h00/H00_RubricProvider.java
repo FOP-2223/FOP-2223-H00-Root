@@ -60,7 +60,7 @@ public class H00_RubricProvider implements RubricProvider {
                                     .testAwareBuilder()
                                     .requirePass(
                                         JUnitTestRef.ofMethod(
-                                            () -> TutorTests.class.getDeclaredMethod("testEndPositionCorrect")
+                                            () -> TutorTests.class.getDeclaredMethod("testMovementCorrect")
                                         )
                                     )
                                     .pointsFailedMin()
@@ -76,7 +76,7 @@ public class H00_RubricProvider implements RubricProvider {
                                     .testAwareBuilder()
                                     .requirePass(
                                         JUnitTestRef.ofMethod(
-                                            () -> TutorTests.class.getDeclaredMethod("testEndPositionCorrect")
+                                            () -> TutorTests.class.getDeclaredMethod("testCoinsCorrect")
                                         )
                                     )
                                     .pointsFailedMin()
