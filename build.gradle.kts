@@ -3,7 +3,7 @@ plugins {
     java
     application
     alias(libs.plugins.style)
-    id("org.sourcegrade.jagr-gradle") version "0.6.0-SNAPSHOT"
+    alias(libs.plugins.jagr.gradle)
 }
 
 version = file("version").readLines().first()
@@ -21,6 +21,9 @@ jagr {
         val graderPublic by creating {
             graderName.set("FOP-2223-H00-Public")
             rubricProviderName.set("h00.H00_RubricProvider")
+            configureDependencies {
+                implementation(libs.algoutils.tutor)
+            }
         }
         val graderPrivate by creating {
             parent(graderPublic)
@@ -31,6 +34,7 @@ jagr {
 
 dependencies {
     implementation(libs.annotations)
+    implementation(libs.algoutils.student)
     testImplementation(libs.junit.core)
     implementation("org.sourcegrade:fopbot:0.4.0")
 }
@@ -41,7 +45,7 @@ application {
 
 tasks {
     val runDir = File("build/run")
-    named<JavaExec>("run") {
+    withType<JavaExec> {
         doFirst {
             runDir.mkdirs()
         }
@@ -58,8 +62,5 @@ tasks {
         options.encoding = "UTF-8"
         sourceCompatibility = "17"
         targetCompatibility = "17"
-    }
-    jar {
-        enabled = false
     }
 }

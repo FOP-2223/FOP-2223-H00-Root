@@ -4,12 +4,8 @@ import org.sourcegrade.jagr.api.rubric.Criterion;
 import org.sourcegrade.jagr.api.rubric.Grader;
 import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
 import org.sourcegrade.jagr.api.rubric.Rubric;
-import org.sourcegrade.jagr.api.rubric.RubricForSubmission;
 import org.sourcegrade.jagr.api.rubric.RubricProvider;
-import org.sourcegrade.jagr.api.testing.ClassTransformer;
-import org.sourcegrade.jagr.api.testing.RubricConfiguration;
 
-@RubricForSubmission("h00")
 public class H00_RubricProvider implements RubricProvider {
 
     @Override
@@ -64,7 +60,7 @@ public class H00_RubricProvider implements RubricProvider {
                                     .testAwareBuilder()
                                     .requirePass(
                                         JUnitTestRef.ofMethod(
-                                            () -> TutorTests.class.getDeclaredMethod("testEndPositionCorrect")
+                                            () -> TutorTests.class.getDeclaredMethod("testMovementCorrect")
                                         )
                                     )
                                     .pointsFailedMin()
@@ -80,7 +76,7 @@ public class H00_RubricProvider implements RubricProvider {
                                     .testAwareBuilder()
                                     .requirePass(
                                         JUnitTestRef.ofMethod(
-                                            () -> TutorTests.class.getDeclaredMethod("testEndPositionCorrect")
+                                            () -> TutorTests.class.getDeclaredMethod("testCoinsCorrect")
                                         )
                                     )
                                     .pointsFailedMin()
