@@ -38,8 +38,8 @@ public class Main {
      */
     public static void doExercise() {
         Robot robby = new Robot(4, 0, DOWN, 12);
-        // TODO H00 Implement your solution here:
 
+        // <solution H4>
         // Zunächst drehen wir uns nach oben
         while (robby.getDirection() != UP) {
             robby.turnLeft();
@@ -70,5 +70,6 @@ public class Main {
             robby.turnLeft();
             robby.turnLeft();
         }
+        // </solution>
     }
 }
