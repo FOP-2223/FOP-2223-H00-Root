@@ -45,7 +45,7 @@ public class TutorTests {
      * @param movementId the Index of the movement
      * @return the message
      */
-    public static String getWrongMovementAtMoveMessage(int movementId) {
+    public static String getWrongMovementAtMoveMessage(final int movementId) {
         return String.format("Die %s. Bewegung ist inkorrekt: ", movementId + 1);
     }
 
@@ -55,7 +55,7 @@ public class TutorTests {
      * @param p the position of the coin
      * @return the message
      */
-    public static String getWrongCoinCountMessage(@Nullable Point p) {
+    public static String getWrongCoinCountMessage(@Nullable final Point p) {
         if (p == null) {
             return "Die Anzahl der Münzen ist inkorrekt.";
         }
@@ -92,7 +92,7 @@ public class TutorTests {
      * @param expected the expected movement
      * @param actual   the actual movement
      */
-    private static void assertMovementEquals(List<MovementState> expected, List<MovementState> actual) {
+    private static void assertMovementEquals(final List<MovementState> expected, final List<MovementState> actual) {
         // length
         assertEquals(expected.size(), actual.size(), WRONG_MOVEMENT_AMOUNT);
         // elements
@@ -111,7 +111,7 @@ public class TutorTests {
      * @param states the list to convert
      * @return the converted List
      */
-    private static List<MovementState> toMovementStates(List<Field> states) {
+    private static List<MovementState> toMovementStates(final List<Field> states) {
         return states.stream().map(x -> {
             final Robot robot = (Robot) x.getEntities().stream().filter(y -> y instanceof Robot).findFirst().orElse(null);
             assertNotNull(robot, WRONG_ROBOT_AMOUNT);
@@ -126,7 +126,7 @@ public class TutorTests {
      * @return the Java-Code
      */
     @SuppressWarnings("unused")
-    public static String getMovementStringListGenerationCode(List<MovementState> states) {
+    public static String getMovementStringListGenerationCode(final List<MovementState> states) {
         return "List.of(\n" + states.stream()
             .map(s -> String.format("\tnew MovementState(%s, %s, %s)", s.x, s.y, s.d))
             .collect(Collectors.joining(",\n")) + "\n);";
@@ -138,7 +138,7 @@ public class TutorTests {
      * @param state the state
      * @return the coin Counts
      */
-    public static int[][] getCoinCounts(Field state) {
+    public static int[][] getCoinCounts(final Field state) {
         final var result = new int[World.getHeight()][World.getWidth()];
         state.getEntities().stream().filter(Coin.class::isInstance).forEach(c -> result[c.getX()][c.getY()]++);
         return result;
@@ -150,7 +150,7 @@ public class TutorTests {
      * @param expected the expected coin counts
      * @param actual   the actual Coin Counts
      */
-    public static void assertCoinCountsEqual(int[][] expected, int[][] actual) {
+    public static void assertCoinCountsEqual(final int[][] expected, final int[][] actual) {
         for (int x = 0; x < World.getWidth(); x++) {
             for (int y = 0; y < World.getHeight(); y++) {
                 assertEquals(expected[y][x], actual[y][x], getWrongCoinCountMessage(new Point(x, y)));

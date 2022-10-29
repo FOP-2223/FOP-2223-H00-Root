@@ -36,7 +36,7 @@ dependencies {
     implementation(libs.annotations)
     implementation(libs.algoutils.student)
     testImplementation(libs.junit.core)
-    implementation("org.sourcegrade:fopbot:0.3.0")
+    implementation(libs.fopbot)
 }
 
 application {
