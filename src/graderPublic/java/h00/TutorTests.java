@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Ruben Deisenroth
  */
-@TestForSubmission("h00")
+@TestForSubmission()
 public class TutorTests {
     //------------//
     //--Messages--//
