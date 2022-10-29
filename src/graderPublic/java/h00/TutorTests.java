@@ -31,7 +31,7 @@ import static fopbot.Direction.UP;
  *
  * @author Ruben Deisenroth
  */
-@TestForSubmission()
+@TestForSubmission
 public class TutorTests {
     //------------//
     //--Messages--//
