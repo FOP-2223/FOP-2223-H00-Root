@@ -12,15 +12,15 @@ public class H00_RubricProvider implements RubricProvider {
     public Rubric getRubric() {
         return Rubric
             .builder()
-            .title("H00")
+            .title("H00 | Java-Einstieg mit FOPBot")
             .addChildCriteria(
                 Criterion
                     .builder()
-                    .shortDescription("H4: Erste Schritte mit FOPBot")
+                    .shortDescription("H4 | Erste Schritte mit FOPBot")
                     .addChildCriteria(
                         Criterion
                             .builder()
-                            .shortDescription("Der Roboter erreicht die obere rechte Ecke mindestens einmal")
+                            .shortDescription("Der Roboter erreicht die obere rechte Ecke mindestens einmal.")
                             .grader(
                                 Grader
                                     .testAwareBuilder()
