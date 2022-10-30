@@ -9,22 +9,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
-
-import org.tudalgo.algoutils.tutor.general.assertions.Context;
-
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import javax.annotation.Nullable;
 
 import static fopbot.Direction.DOWN;
 import static fopbot.Direction.LEFT;
 import static fopbot.Direction.RIGHT;
 import static fopbot.Direction.UP;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertFalse;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertNotNull;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertTrue;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
 
 /**
  * The Tutor Tests for Submission H00.
@@ -248,8 +248,9 @@ public class TutorTests {
         assertTrue(
             lastState.getEntities().stream()
                 .filter(Robot.class::isInstance)
-                .anyMatch(x -> x.getX() == 0 && x.getY() == 0)
-            , emptyContext(), r -> END_POSITION_NOT_CORRECT
+                .anyMatch(x -> x.getX() == 0 && x.getY() == 0),
+            emptyContext(),
+            r -> END_POSITION_NOT_CORRECT
         );
     }
 
