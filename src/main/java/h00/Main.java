@@ -3,6 +3,9 @@ package h00;
 import fopbot.Robot;
 import fopbot.World;
 
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import static fopbot.Direction.DOWN;
 import static fopbot.Direction.UP;
 
@@ -18,7 +21,7 @@ public class Main {
      *
      * @param args the Launch arguments
      */
-    public static void main(String... args) {
+    public static void main(final String... args) {
         // Welt mit Größe 5x5 erstellen
         final int worldSize = 5;
         World.setSize(worldSize, worldSize);
@@ -37,39 +40,10 @@ public class Main {
      * Bewegt den Roboter entsprechend den Anforderungen von Übungsblatt 00.
      */
     public static void doExercise() {
-        Robot robby = new Robot(4, 0, DOWN, 12);
+        final Robot robby = new Robot(4, 0, DOWN, 12);
 
         // <solution H4>
-        // Zunächst drehen wir uns nach oben
-        while (robby.getDirection() != UP) {
-            robby.turnLeft();
-        }
-        // Dann laufen wir nach oben und legen nach jedem schritt eine Münze ab
-        for (int i = 0; i < World.getHeight() - 1; i++) {
-            robby.move();
-            robby.putCoin();
-        }
-        // nach links schauen
-        robby.turnLeft();
-
-        // jetzt gehen wir stufenweise nach unten links
-        for (int i = 0; i < 4; i++) {
-            // Schritt nach Links + Münze legen
-            robby.move();
-            robby.putCoin();
-
-            // Nach unten schauen
-            robby.turnLeft();
-
-            // Schritt nach Unten
-            robby.move();
-            robby.putCoin();
-
-            // Rechtsdrehung
-            robby.turnLeft();
-            robby.turnLeft();
-            robby.turnLeft();
-        }
+        Stream.<Runnable>of(() -> IntStream.range(1, World.getHeight()).forEach(i -> Stream.<Runnable>of(() -> Stream.generate(robby::getDirection).takeWhile(d -> d.ordinal() != 0).forEach(d -> robby.turnLeft()), robby::move, robby::putCoin).forEach(Runnable::run)), robby::turnLeft, () -> Stream.generate(robby::isFrontClear).takeWhile(x -> x).forEach((i) -> Stream.<Runnable>of(() -> Stream.generate(robby::getDirection).takeWhile(d -> d.ordinal() != 3).forEach(d -> robby.turnLeft()),robby::move,robby::putCoin,() -> Stream.generate(robby::getDirection).takeWhile(d -> d.ordinal() != 2).forEach(d -> robby.turnLeft()),robby::move,robby::putCoin).forEach(Runnable::run)),() -> Stream.generate(robby::getDirection).takeWhile(d -> d.ordinal() != 3).forEach(d -> robby.turnLeft())).forEach(Runnable::run); // Zeile ist trivial
         // </solution>
     }
 }
